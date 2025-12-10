@@ -54,6 +54,12 @@ class User extends Authenticatable
         'rol',
     ];
 
+
+    public function municipio() {
+        return $this->belongsTo(Municipio::class);
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alcaldes', function (Blueprint $table) {
-            $table->id();
+        Schema::create('administrador_municipio', function (Blueprint $table) {
+            $table->foreignId('municipio_id');
+            $table->foreignId('user_id');
+            $table->primary(['municipio_id', 'user_id']);
+
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alcaldes');
+        Schema::dropIfExists('administrador_municipio');
     }
 };

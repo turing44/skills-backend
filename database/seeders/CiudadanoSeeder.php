@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Consejero;
+use Database\Factories\CiudadanoFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ConsejeroSeeder extends Seeder
+class CiudadanoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Consejero::factory(12)->create();
+        CiudadanoFactory::new()->count(20)->create();
     }
 }

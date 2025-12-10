@@ -32,4 +32,17 @@ class Municipio extends Model
 {
     /** @use HasFactory<\Database\Factories\MunicipioFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'nombre',
+        'alcalde_id',
+        'admin_id',
+        'poblacion_verano',
+        'poblacion_fiestas',
+        'poblacion_censada',
+    ];
+
+    public function ciudadanos() {
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Municipio;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -28,17 +29,31 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'password' => Hash::make('1234'),
 
-            'rol' => fake()->randomElement(['ciudadano', 'admin', 'alcalde']),
+            'rol' => fake()->randomElement(['admin', 'alcalde']),
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+
+    
+    public function ciudadanos(): static
+    {
+        $municipio = Municipio::inRandomOrder()->first()->id;
+
+        return $this->state(fn (array $attributes) => [
+            'rol' => 'ciudadano',
+            'municipio_id' => $municipio,
+        ]);
+    }
+    public function admins(): static
     {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'rol' => 'admin',
+        ]);
+    }
+    public function alcaldes(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'rol' => 'alcalde',
         ]);
     }
 }
