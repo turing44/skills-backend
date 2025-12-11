@@ -13,7 +13,7 @@ class MunicipioController extends Controller
      */
     public function index()
     {
-        //
+        return Municipio::with('admins')->get();
     }
 
     /**

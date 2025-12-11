@@ -38,7 +38,7 @@ class UserFactory extends Factory
     public function ciudadanos(): static
     {
 
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn () => [
             'rol' => 'ciudadano',
             'municipio_id' => Municipio::inRandomOrder()->first()->id,
         ]);
@@ -46,14 +46,14 @@ class UserFactory extends Factory
 
     public function admins(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn () => [
             'rol' => 'admin',
         ]);
     }
 
     public function alcaldes(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn () => [
             'rol' => 'alcalde',
         ]);
     }

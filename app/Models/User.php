@@ -52,11 +52,18 @@ class User extends Authenticatable
         'email',
         'password',
         'rol',
+
+        'municipio_id'
     ];
+
 
 
     public function municipioGobernado() {
         return $this->hasOne(Municipio::class, 'alcalde_id');
+    }
+    
+    public function municipiosAdministrados() {
+        return $this->belongsToMany(Municipio::class, 'admin_municipio', 'admin_id', 'municipio_id')->withTimestamps();
     }
 
 

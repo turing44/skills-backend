@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('administrador_municipio', function (Blueprint $table) {
+        Schema::create('admin_municipio', function (Blueprint $table) {
             $table->foreignId('municipio_id');
-            $table->foreignId('user_id');
-            $table->primary(['municipio_id', 'user_id']);
+
+            $table->unsignedBigInteger('admin_id');
+
+            $table->foreign('admin_id')->references('id')->on('users');
+            $table->primary(['municipio_id', 'admin_id']);
 
             $table->timestamps();
         });
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('administrador_municipio');
+        Schema::dropIfExists('admin_municipio');
     }
 };

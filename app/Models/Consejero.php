@@ -29,6 +29,8 @@ class Consejero extends Model
     /** @use HasFactory<\Database\Factories\ConsejeroFactory> */
     use HasFactory;
 
+    
+
     public function municipio() {
         return $this->belongsTo(Municipio::class);
     }
