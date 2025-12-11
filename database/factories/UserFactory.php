@@ -34,22 +34,23 @@ class UserFactory extends Factory
     }
 
 
-    
+
     public function ciudadanos(): static
     {
-        $municipio = Municipio::inRandomOrder()->first()->id;
 
         return $this->state(fn (array $attributes) => [
             'rol' => 'ciudadano',
-            'municipio_id' => $municipio,
+            'municipio_id' => Municipio::inRandomOrder()->first()->id,
         ]);
     }
+
     public function admins(): static
     {
         return $this->state(fn (array $attributes) => [
             'rol' => 'admin',
         ]);
     }
+
     public function alcaldes(): static
     {
         return $this->state(fn (array $attributes) => [

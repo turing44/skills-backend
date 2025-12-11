@@ -15,13 +15,17 @@ class MunicipioSeeder extends Seeder
     public function run(): void
     {
 
+
         $alcaldes = User::where('rol', 'alcalde')->pluck('id');
 
         foreach ($alcaldes as $alcalde) {
+
+            $admin = User::where('rol', 'admin')->inRandomOrder()->first()->id;
+
             Municipio::create([
                 'nombre' => fake()->city(),
                 'alcalde_id' => $alcalde,
-                'admin_id' => 1,
+                'admin_id' => $admin,
 
                 'poblacion_verano' => '1000',
                 'poblacion_fiestas' => '1000',

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class AlcaldeController extends Controller
 {
@@ -11,7 +13,11 @@ class AlcaldeController extends Controller
      */
     public function index()
     {
-        return User::where('rol', 'alcalde')->get();
+        return User::where('rol', 'alcalde')
+            ->with([
+                'municipioGobernado.ciudadanos',
+                'municipioGobernado.consejeros',
+            ])->get();
     }
 
     /**

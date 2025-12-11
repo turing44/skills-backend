@@ -16,8 +16,17 @@ class MunicipioFactory extends Factory
      */
     public function definition(): array
     {
+        $alcalde = Municipio::inRandomOrder()->first()->id;
+        $admin = User::where('rol', 'admin')->inRandomOrder()->first()->id;
+
         return [
-            ''
+            'nombre' => fake()->city(),
+            'alcalde_id' => $alcalde,
+            'admin_id' => $admin,
+
+            'poblacion_verano' => fake()->randomNumber(),
+            'poblacion_fiestas' => fake()->randomNumber(),
+            'poblacion_censada' => fake()->randomNumber(),
         ];
     }
 }

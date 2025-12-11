@@ -43,6 +43,14 @@ class Municipio extends Model
     ];
 
     public function ciudadanos() {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class);
+    }
+
+    public function consejeros() {
+        return $this->hasMany(Consejero::class);
+    }
+
+    public function alcalde() {
+        return $this->belongsTo(User::class);
     }
 }
