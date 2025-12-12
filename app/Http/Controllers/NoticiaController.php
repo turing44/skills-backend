@@ -13,7 +13,7 @@ class NoticiaController extends Controller
      */
     public function index()
     {
-        //
+        return Noticia::with('creador')->get();
     }
 
     /**
@@ -21,15 +21,27 @@ class NoticiaController extends Controller
      */
     public function store(StoreNoticiaRequest $request)
     {
-        //
+
+        $user = $request->user()->id;
+
+        $noticia = Noticia::create([
+            'titular' => $request->input('titular'),
+            'cuerpo' => $request->input('cuerpo'),
+            'fecha' => $request->input('fecha'),
+            'calificacion' => $request->input('calificacion'),
+            'creador_id' => $user,
+        ]);
+
+
+        return response()->json($noticia, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Noticia $noticia)
+    public function show($id)
     {
-        //
+        return Noticia::findOrFail($id);
     }
 
     /**

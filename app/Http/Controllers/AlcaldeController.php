@@ -51,4 +51,10 @@ class AlcaldeController extends Controller
     {
         //
     }
+
+    public function getNoticias($id)
+        {
+            $usuario = User::with('noticias')->findOrFail($id);
+            return $usuario;
+        }
 }

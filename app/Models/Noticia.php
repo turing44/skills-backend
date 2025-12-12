@@ -22,4 +22,16 @@ class Noticia extends Model
 {
     /** @use HasFactory<\Database\Factories\NoticiaFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'titular',
+        'cuerpo',
+        'calificacion',
+        'creador_id',
+        'fecha',
+    ];
+
+    public function creador() {
+        return $this->belongsTo(User::class, 'creador_id');
+    }
 }

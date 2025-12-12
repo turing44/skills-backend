@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('noticias', function (Blueprint $table) {
             $table->id();
+            $table->string('titular');
+            $table->string('cuerpo');
+            $table->enum('calificacion', ['urgente', 'evento', 'informacion', 'aviso']);
+            $table->timestamp('fecha');
+
+            $table->unsignedBigInteger('creador_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }

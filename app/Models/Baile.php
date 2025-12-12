@@ -22,4 +22,6 @@ class Baile extends Model
 {
     /** @use HasFactory<\Database\Factories\BaileFactory> */
     use HasFactory;
+
+    
 }
