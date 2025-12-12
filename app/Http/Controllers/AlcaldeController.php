@@ -41,15 +41,15 @@ class AlcaldeController extends Controller
      */
     public function update(Request $request, Alcalde $alcalde)
     {
-        //
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Alcalde $alcalde)
+    public function destroy($id)
     {
-        //
+        User::findOrFail($id)->delete();
     }
 
     public function getNoticias($id)

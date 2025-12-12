@@ -16,8 +16,11 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('nombre')->unique();
-            $table->unsignedBigInteger('alcalde_id');
-            $table->foreign('alcalde_id')->references('id')->on('users');
+
+
+            $table->unsignedBigInteger('alcalde_id')->references('id')->on('users');
+
+
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('users');
 

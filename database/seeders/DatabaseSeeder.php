@@ -48,9 +48,9 @@ class DatabaseSeeder extends Seeder
                 'alcalde_id' => $alcalde,
                 'admin_id' => $admin,
 
-                'poblacion_verano' => '1000',
-                'poblacion_fiestas' => '1000',
-                'poblacion_censada' => '1000',
+                'poblacion_verano' => fake()->numberBetween(5000, 999_999_999),
+                'poblacion_fiestas' => fake()->numberBetween(5000, 999_999_999),
+                'poblacion_censada' => fake()->numberBetween(5000, 999_999_999),
             ]);
         }
 
@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->ciudadanos()->count(33)->create();
 
-
+        
 
     }
 }

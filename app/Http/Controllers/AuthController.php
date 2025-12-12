@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     public function register(RegisterRequest $request) {
+        
         $request->validated();
 
         $user = User::create([
