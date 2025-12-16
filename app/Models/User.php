@@ -60,6 +60,10 @@ class User extends Authenticatable
 
 
 
+    public function municipioCensado() {
+        return $this->belongsTo(Municipio::class, 'municipio_id');
+    }
+
     public function municipioGobernado() {
         return $this->hasOne(Municipio::class, 'alcalde_id');
     }

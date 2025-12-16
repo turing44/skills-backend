@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ciudadano;
+use App\Models\User;
+use App\Http\Requests\UpdateCiudadanoRequest;
 use Illuminate\Http\Request;
 
 class CiudadanoController extends Controller
@@ -26,7 +28,7 @@ class CiudadanoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ciudadano $ciudadano)
+    public function show(Request $id)
     {
         //
     }
@@ -34,9 +36,20 @@ class CiudadanoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ciudadano $ciudadano)
+    public function update(UpdateCiudadanoRequest $request, User $user)
     {
-        //
+        $request->validated();
+
+        $ciudadano = $user;
+
+        $ciudadano->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'municipio_id' => $request->input('municipio_id'),
+        ]);
+
+
+        return response()->json($ciudadano, 200);
     }
 
     /**
@@ -46,4 +59,15 @@ class CiudadanoController extends Controller
     {
         //
     }
+
+    public function getPerfil(Request $request)
+    {
+        $ciudadano = $request->user()->id;
+
+        $respuesta = User::with(['municipioCensado'])->where('id', $ciudadano)->get();
+
+        return response()->json($respuesta , 200);
+    }
+
+
 }
