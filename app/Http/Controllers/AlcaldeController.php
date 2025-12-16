@@ -52,9 +52,9 @@ class AlcaldeController extends Controller
         User::findOrFail($id)->delete();
     }
 
-    public function getNoticias($id)
-        {
-            $usuario = User::with('noticias')->findOrFail($id);
-            return $usuario;
-        }
+    public function getNoticias($id) {
+        
+        $usuario = User::with('noticias')->findOrFail($id);
+        return $usuario;
+    }
 }

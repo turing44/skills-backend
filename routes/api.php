@@ -47,6 +47,7 @@ Route::middleware(['auth:sanctum', 'rol:ciudadano'])->group(function () {
 Route::middleware(['auth:sanctum', 'rol:admin'])->group(function () {
     Route::post('/alcaldes', [AlcaldeController::class, 'registrarAlcalde']);
     Route::post('/municipios', [MunicipioController::class, 'store']);
+    Route::put('/municipios/{municipio}/admin', [MunicipioController::class, 'update']);
 });
 
 

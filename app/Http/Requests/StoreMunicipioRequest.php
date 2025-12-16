@@ -22,7 +22,9 @@ class StoreMunicipioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'poblacion_verano' => 'required|integer',
+            'poblacion_fiestas' => 'required|integer',
+            'poblacion_censada' => 'required|integer',
         ];
     }
 }
