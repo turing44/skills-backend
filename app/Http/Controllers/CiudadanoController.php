@@ -4,34 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Ciudadano;
 use App\Models\User;
+use App\Models\Evento;
+use App\Models\InscripcionEvento;
 use App\Http\Requests\UpdateCiudadanoRequest;
+use App\Http\Requests\InscripcionEventoRequest;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
 
 class CiudadanoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -52,19 +34,61 @@ class CiudadanoController extends Controller
         return response()->json($ciudadano, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ciudadano $ciudadano)
-    {
-        //
+
+    public function inscribirseEnEvento(Evento $evento) {
+
+        $user = Auth::user();
+
+        $yaInscrito = InscripcionEvento::where('user_id', $user->id)
+                            ->where('evento_id', $evento->id)
+                            ->whereNull('fecha_baja')
+                            ->exists();
+
+        if ($yaInscrito) {
+            return response()->json('Ya esta inscrito en este evento', 409);
+        }
+
+        $inscripcion = InscripcionEvento::create([
+            'user_id' => $user->id,
+            'evento_id' => $evento->id,
+            'fecha_alta' => now(),
+            'fecha_baja' => null,
+        ]);
+
+        return response()->json($inscripcion, 201);
+
     }
 
-    public function getPerfil(Request $request)
-    {
-        $ciudadano = $request->user()->id;
 
-        $respuesta = User::with(['municipioCensado'])->where('id', $ciudadano)->get();
+    public function getInscripcionesEnEventos(Request $request)
+    {
+        $ciudadano = $request->user();
+
+        $eventos = $ciudadano->eventos;
+
+        $preciosTotales = $ciudadano->eventos()->pluck('precio');
+
+        $precioTotal = 0;
+
+        foreach ($preciosTotales as $precio) {
+            $precioTotal += $precio;
+        }
+
+
+
+        return response()->json([
+            'precio_total' => number_format($precioTotal, 2, '.', ''),
+            'eventos' => $eventos
+        ], 200);
+    }
+
+    public function getEventosDisponibles(Request $request)
+    {
+        $ciudadano = $request->user();
+
+        $eventosInscritos = $ciudadano->eventos()->pluck('eventos.id');
+
+        $respuesta = Evento::whereNotIn('id', $eventosInscritos)->get();
 
         return response()->json($respuesta , 200);
     }

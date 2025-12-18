@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Municipio;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,8 @@ class EventoFactory extends Factory
     {
         return [
             'nombre' => fake()->name(),
-            'creador_id' => User::inRandomOrder()->where('rol', 'alcalde')->orWhere('rol', 'admin')->id,
+            'creador_id' => 1, // digamos que todos los eventos los crea el admin
+            'municipio_id' => Municipio::inRandomOrder()->first()->id,
             'precio' => fake()->randomFloat(2, 1, 90),
             'fecha' => fake()->date(),
         ];

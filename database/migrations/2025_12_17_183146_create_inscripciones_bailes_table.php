@@ -11,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_municipio', function (Blueprint $table) {
-            $table->foreignId('municipio_id');
-
-            $table->unsignedBigInteger('admin_id');
-
-            $table->foreign('admin_id')->references('id')->on('users');
-            $table->primary(['municipio_id', 'admin_id']);
-
+        Schema::create('inscripciones_bailes', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -28,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_municipio');
+        Schema::dropIfExists('inscripciones_bailes');
     }
 };

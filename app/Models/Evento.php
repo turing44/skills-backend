@@ -13,6 +13,7 @@ class Evento extends Model
     protected $fillable = [
         'nombre',
         'creador_id',
+        'municipio_id',
         'precio',
         'fecha',
     ];
@@ -20,5 +21,9 @@ class Evento extends Model
 
     public function creador() {
         return $this->belongsTo(User::class, 'creador_id');
+    }
+
+    public function inscritos() {
+        return $this->belongsToMany(User::class, 'incripciones_eventos', 'evento_id', 'user_id', 'evento_id');
     }
 }

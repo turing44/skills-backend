@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Municipio;
 use App\Models\Consejero;
+use App\Models\Evento;
+use App\Models\Baile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -29,17 +31,23 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
+        User::factory()->create([
+            'name' => 'alcalde',
+            'email' => 'alcalde@alcalde.com',
+            'password' => Hash::make('1234'),
+            'rol' => 'alcalde'
+        ]);
 
 
-        User::factory()->alcaldes()->count(10)->create();
+
+
+        $alcaldes = User::factory()->alcaldes()->count(9)->create();
 
 
 
 
 
-        $alcaldes = User::where('rol', 'alcalde')->pluck('id');
-
-        foreach ($alcaldes as $alcalde) {
+        foreach ($alcaldes->pluck('id') as $alcalde) {
 
             $admin = User::where('rol', 'admin')->inRandomOrder()->first()->id;
 
@@ -58,9 +66,19 @@ class DatabaseSeeder extends Seeder
         Consejero::factory(12)->create();
 
 
+        User::factory()->create([
+            'name' => 'rober',
+            'email' => 'rober@ciudadano.com',
+            'password' => Hash::make('1234'),
+            'rol' => 'ciudadano',
+            'municipio_id' => 1,
+        ]);
+
         User::factory()->ciudadanos()->count(33)->create();
 
-        
+        Evento::factory(33)->create();
+
+
 
     }
 }

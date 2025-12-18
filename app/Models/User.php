@@ -62,7 +62,6 @@ class User extends Authenticatable
 
 
 
-
     public function municipioCensado() {
         return $this->belongsTo(Municipio::class, 'municipio_id');
     }
@@ -72,12 +71,24 @@ class User extends Authenticatable
     }
 
     public function municipiosAdministrados() {
-        return $this->belongsToMany(Municipio::class, 'admin_municipio', 'admin_id', 'municipio_id')->withTimestamps();
+        return $this->hasMany(Municipio::class, 'admin_id');
     }
+
 
 
     public function noticias() {
         return $this->hasMany(Noticia::class, 'creador_id');
+    }
+
+
+
+    public function inscripcionesEnEventos() {
+        return $this->hasMany(InscripcionEvento::class);
+    }
+
+    public function eventos() {
+        return $this->belongsToMany(Evento::class, 'inscripciones_eventos')
+                    ->withPivot(['fecha_alta', 'fecha_baja']);
     }
 
 

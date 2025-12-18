@@ -21,7 +21,16 @@ class EventoController extends Controller
      */
     public function store(StoreEventoRequest $request)
     {
-        //
+        $request->validated();
+
+        $evento = Evento::create([
+            'nombre' => $request->input('nombre'),
+            'precio' => $request->input('precio'),
+            'fecha' => $request->input('fecha'),
+            'creador_id' => $request->user()->id,
+        ]);
+
+        return response()->json($evento, 201);
     }
 
     /**
