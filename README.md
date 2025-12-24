@@ -14,7 +14,27 @@ Por ejemplo inscripciones bailes: creo un Model llamado InscripcionBaile. Hay un
     ```
 
 
+# Iniciar proyecto
 
+Primero copiar el .env
 
+```bash
+php artisan migrate
 
+php artisan db:seed
+```
+
+### Usuarios default
+admin@admin.com <br>
+1234
+
+alcalde@alcalde.com <br>
+1234
+
+rober@ciudadano.com <br>
+1234
+
+# Probar peticiones
+
+En el archivo peticionesPostman.json
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('calificacion', ['urgente', 'evento', 'informacion', 'aviso']);
             $table->timestamp('fecha');
 
+            $table->foreignId('municipio_id');
             $table->unsignedBigInteger('creador_id')->references('id')->on('users');
 
             $table->timestamps();

@@ -28,10 +28,13 @@ class Noticia extends Model
         'cuerpo',
         'calificacion',
         'creador_id',
+        'municipio_id',
         'fecha',
     ];
 
     public function creador() {
         return $this->belongsTo(User::class, 'creador_id');
     }
+
+    
 }

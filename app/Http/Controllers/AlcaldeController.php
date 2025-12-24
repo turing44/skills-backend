@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 
 class AlcaldeController extends Controller
@@ -25,7 +26,21 @@ class AlcaldeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $alcalde = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+
+
+        return $alcalde;
+
     }
 
     /**
@@ -41,7 +56,7 @@ class AlcaldeController extends Controller
      */
     public function update(Request $request, Alcalde $alcalde)
     {
-        
+
     }
 
     /**
@@ -53,7 +68,7 @@ class AlcaldeController extends Controller
     }
 
     public function getNoticias($id) {
-        
+
         $usuario = User::with('noticias')->findOrFail($id);
         return $usuario;
     }

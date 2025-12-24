@@ -53,8 +53,20 @@ class Municipio extends Model
     public function alcalde() {
         return $this->belongsTo(User::class);
     }
-    
-    public function admins() {
-        return $this->belongsToMany(User::class, 'admin_municipio', 'municipio_id', 'admin_id')->withTimestamps();
+
+    public function admin() {
+        return $this->belongsTo(User::class, 'admin_id');
+    }
+
+    public function noticias() {
+        return $this->hasMany(Noticia::class);
+    }
+
+    public function eventos() {
+        return $this->hasMany(Evento::class);
+    }
+
+    public function bailes() {
+        return $this->hasMany(Baile::class);
     }
 }

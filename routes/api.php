@@ -21,11 +21,11 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/municipios', [MunicipioController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    Route::get('/municipios', [MunicipioController::class, 'index']);
     Route::get('/me', [UserController::class, 'getPerfil']);
     Route::get('/me/municipios', [UserController::class, 'getMunicipio']);
 
@@ -48,14 +48,14 @@ Route::middleware(['auth:sanctum', 'rol:ciudadano'])->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'rol:admin'])->group(function () {
-    Route::post('/alcaldes', [AlcaldeController::class, 'registrarAlcalde']);
+    Route::post('/alcaldes', [AlcaldeController::class, 'store']);
     Route::post('/municipios', [MunicipioController::class, 'store']);
     Route::put('/municipios/{municipio}/admin', [MunicipioController::class, 'update']);
 });
 
 
 Route::middleware(['auth:sanctum', 'rol:alcalde'])->group(function () {
-    Route::put('/municipios/{municipio}/nombre', [MunicipioController::class, 'cambiarNombre']);
+    Route::put('/municipios/{municipio}/nombre', [MunicipioController::class, 'renombrar']);
 });
 
 

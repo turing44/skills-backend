@@ -6,6 +6,7 @@ use App\Http\Requests\StoreMunicipioRequest;
 use App\Http\Requests\UpdateMunicipioRequest;
 use App\Models\Municipio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MunicipioController extends Controller
 {
@@ -20,7 +21,7 @@ class MunicipioController extends Controller
 
         $max = $request->query('max', 10);
 
-        return Municipio::with(['admins', 'alcalde'])->limit($max)->get();
+        return Municipio::with(['admin', 'alcalde'])->limit($max)->get();
     }
 
     /**
@@ -33,21 +34,23 @@ class MunicipioController extends Controller
         $municipio = Municipio::create([
             'nombre' => 'Nombre por defecto',
             'admin_id' => $request->user()->id,
+            'alcalde_id' => $request->input('alcalde_id'),
             'poblacion_verano' => $request->input('poblacion_verano'),
             'poblacion_fiestas' => $request->input('poblacion_verano'),
             'poblacion_censada' => $request->input('poblacion_verano'),
         ]);
 
         return response()->json($municipio, 201);
-        
+
     }
 
 
 
-    public function renombrar(Municipio $municipio)
+    public function renombrar(Request $request, Municipio $municipio)
     {
         $municipio->nombre = $request->input('nombre');
 
+        $municipio->save();
         return response()->json($municipio, 200);
     }
 
@@ -63,9 +66,15 @@ class MunicipioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMunicipioRequest $request, Municipio $municipio)
+    public function update(Municipio $municipio)
     {
-        //
+        $user = Auth::user();
+
+        $municipio->admin_id = $user->id;
+
+        $municipio->save();
+
+        return $municipio;
     }
 
     /**
